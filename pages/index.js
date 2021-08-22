@@ -1,4 +1,5 @@
 import { getChannelInfo } from "lib/youtube";
+import Image from "next/image";
 import Link from "next/link";
 
 export default function Home({ channelInfos }) {
@@ -15,7 +16,11 @@ export default function Home({ channelInfos }) {
             return (
               <Link key={id} href={`/channel/${id}`}>
                 <a>
-                  <img src={thumbnails.medium?.url} />
+                  <Image
+                    src={thumbnails.medium?.url}
+                    height={thumbnails.medium?.height}
+                    width={thumbnails.medium?.width}
+                  />
                   <div className="line-clamp-2 text-sm font-medium mt-2">
                     {title}
                   </div>

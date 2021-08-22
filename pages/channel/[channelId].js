@@ -1,6 +1,7 @@
 import classNames from "classnames";
 import { formatDistance } from "date-fns";
 import { getChannelInfo, getAllPlaylistItems } from "lib/youtube";
+import Image from "next/image";
 import linkifyHtml from "linkifyjs/html";
 import { useRef, useState } from "react";
 
@@ -144,7 +145,11 @@ export default function Channel({ title, videos }) {
                   className="text-left"
                   onClick={() => selectVideoByIndex(index)}
                 >
-                  <img src={thumbnails.medium?.url} />
+                  <Image
+                    src={thumbnails.medium?.url}
+                    height={thumbnails.medium?.height}
+                    width={thumbnails.medium?.width}
+                  />
                   <div className="flex flex-col justify-between mt-2">
                     <div className="line-clamp-2 text-sm font-medium">
                       {title}
