@@ -12,14 +12,15 @@ export default function Channel({ title, videos }) {
   function selectVideoByIndex(index) {
     if (index > videos.length - 1) {
       setCurrentVideoIndex(0);
+    } else {
+      if (index < 0) {
+        setCurrentVideoIndex(videos.length - 1);
+      } else {
+        setCurrentVideoIndex(index);
+      }
     }
 
-    if (index < 0) {
-      setCurrentVideoIndex(videos.length - 1);
-    }
-
-    setCurrentVideoIndex(index);
-    currentVideoRef?.current?.scrollIntoView();
+    window.scrollTo({ left: 0, top: 0, behavior: "smooth" });
   }
 
   return (
@@ -169,8 +170,8 @@ export default function Channel({ title, videos }) {
 }
 
 export async function getServerSideProps({ query }) {
-  const { channelId } = query;
-  const info = await getChannelInfo(channelId);
+  const { id } = query;
+  const info = await getChannelInfo(id);
   const playlistId = info?.items[0].contentDetails.relatedPlaylists.uploads;
   const title = info?.items[0].snippet.title;
   const videos = await getAllPlaylistItems(playlistId);
